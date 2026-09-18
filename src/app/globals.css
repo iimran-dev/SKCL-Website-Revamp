@@ -1,0 +1,379 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --font-display: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* SKCL Brand Tokens */
+  --color-navy: var(--navy);
+  --color-charcoal: var(--charcoal);
+  --color-soft-white: var(--soft-white);
+  --color-warm-grey: var(--warm-grey);
+  --color-gold: var(--gold);
+  --color-accent-blue: var(--accent-blue);
+  --color-steel: var(--steel);
+}
+
+:root {
+  /* SKCL Corporate Palette */
+  --navy: #071525;
+  --charcoal: #111827;
+  --soft-white: #fafaf8;
+  --warm-grey: #eceae6;
+  --gold: #b68b4c;
+  --accent-blue: #3b82f6;
+  --steel: #5e6470;
+
+  --radius: 0.25rem;
+
+  /* Shadcn tokens mapped to SKCL palette (light mode = warm editorial) */
+  --background: #fafaf8;
+  --foreground: #071525;
+  --card: #ffffff;
+  --card-foreground: #071525;
+  --popover: #ffffff;
+  --popover-foreground: #071525;
+  --primary: #071525;
+  --primary-foreground: #fafaf8;
+  --secondary: #eceae6;
+  --secondary-foreground: #071525;
+  --muted: #eceae6;
+  --muted-foreground: #5e6470;
+  --accent: #071525;
+  --accent-foreground: #fafaf8;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: rgba(7, 21, 37, 0.1);
+  --input: rgba(7, 21, 37, 0.1);
+  --ring: #b68b4c;
+  --chart-1: #b68b4c;
+  --chart-2: #3b82f6;
+  --chart-3: #071525;
+  --chart-4: #5e6470;
+  --chart-5: #eceae6;
+  --sidebar: #071525;
+  --sidebar-foreground: #fafaf8;
+  --sidebar-primary: #b68b4c;
+  --sidebar-primary-foreground: #fafaf8;
+  --sidebar-accent: #111827;
+  --sidebar-accent-foreground: #fafaf8;
+  --sidebar-border: rgba(250, 250, 248, 0.1);
+  --sidebar-ring: #b68b4c;
+}
+
+.dark {
+  --background: #071525;
+  --foreground: #fafaf8;
+  --card: #0c1a2b;
+  --card-foreground: #fafaf8;
+  --popover: #0c1a2b;
+  --popover-foreground: #fafaf8;
+  --primary: #fafaf8;
+  --primary-foreground: #071525;
+  --secondary: #111827;
+  --secondary-foreground: #fafaf8;
+  --muted: #111827;
+  --muted-foreground: #8b94a3;
+  --accent: #b68b4c;
+  --accent-foreground: #071525;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgba(250, 250, 248, 0.1);
+  --input: rgba(250, 250, 248, 0.15);
+  --ring: #b68b4c;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+  ::selection {
+    background: var(--gold);
+    color: var(--navy);
+  }
+}
+
+/* ============ SKCL DESIGN SYSTEM UTILITIES ============ */
+
+@layer components {
+  /* Editorial section label — thin uppercase tracking */
+  .skcl-label {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--gold);
+  }
+  .skcl-label-muted {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--steel);
+  }
+
+  /* Display headings */
+  .skcl-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+  .skcl-editorial {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.02;
+  }
+
+  /* Hairline rule */
+  .skcl-rule {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--gold) 20%,
+      var(--gold) 80%,
+      transparent
+    );
+  }
+
+  /* Architectural grid background */
+  .skcl-grid-bg {
+    background-image: linear-gradient(
+        rgba(250, 250, 248, 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(250, 250, 248, 0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .skcl-grid-bg-dark {
+    background-image: linear-gradient(
+        rgba(7, 21, 37, 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(7, 21, 37, 0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  /* Glass blur panel */
+  .skcl-glass {
+    background: rgba(250, 250, 248, 0.06);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid rgba(250, 250, 248, 0.1);
+  }
+
+  /* Navy gradient backgrounds */
+  .skcl-navy-gradient {
+    background: linear-gradient(180deg, #071525 0%, #0c1a2b 50%, #071525 100%);
+  }
+
+  /* Gold text gradient */
+  .skcl-gold-text {
+    background: linear-gradient(135deg, #d4af6e 0%, #b68b4c 50%, #8a6634 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Image hover zoom container */
+  .skcl-zoom {
+    overflow: hidden;
+  }
+  .skcl-zoom img {
+    transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .skcl-zoom:hover img {
+    transform: scale(1.06);
+  }
+}
+
+/* ============ CUSTOM SCROLLBAR ============ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(7, 21, 37, 0.2);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* ============ MOTION ============ */
+.reduced-motion-guard {
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Marquee */
+@keyframes skcl-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.skcl-marquee {
+  animation: skcl-marquee 40s linear infinite;
+}
+.skcl-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Slow zoom for hero */
+@keyframes skcl-slow-zoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.12);
+  }
+}
+.skcl-slow-zoom {
+  animation: skcl-slow-zoom 24s ease-out infinite alternate;
+}
+
+/* Shimmer for blueprint lines */
+@keyframes skcl-shimmer {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.skcl-shimmer {
+  animation: skcl-shimmer 3s ease-in-out infinite;
+}
+
+/* Pulse glow for map */
+@keyframes skcl-pulse-glow {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+.skcl-pulse-glow {
+  animation: skcl-pulse-glow 3s ease-out infinite;
+}
+
+/* Subtle float */
+@keyframes skcl-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.skcl-float {
+  animation: skcl-float 6s ease-in-out infinite;
+}
+
+/* Scroll indicator */
+@keyframes skcl-scroll-hint {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+}
+.skcl-scroll-hint {
+  animation: skcl-scroll-hint 2.2s ease-in-out infinite;
+}
+
+/* Gradient sweep line */
+@keyframes skcl-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Utility: text balance */
+.text-balance {
+  text-wrap: balance;
+}
