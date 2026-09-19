@@ -9,9 +9,9 @@ export function LegacyStatement() {
   return (
     <section
       id="company"
-      className="relative z-20 -mt-8 bg-navy px-4 pb-12 pt-4 sm:-mt-12 sm:px-6 sm:pb-16 sm:pt-6 md:-mt-16 md:pb-20 lg:px-8"
+      className="relative z-20 -mt-8 px-4 pb-12 pt-4 sm:-mt-12 sm:px-6 sm:pb-16 sm:pt-6 md:-mt-16 md:pb-20 lg:px-8"
     >
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-2xl border border-black/[0.04] bg-white px-7 py-10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] sm:rounded-3xl sm:px-12 sm:py-14 md:px-14 md:py-16 lg:rounded-[2.5rem] lg:px-16 lg:py-18">
+      <div className="mx-auto max-w-7xl overflow-hidden  px-7 py-10  sm:rounded-3xl sm:px-12 sm:py-14 md:px-14 md:py-16 lg:rounded-[2.5rem] lg:px-16 lg:py-18">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
           {/* Left Column: OUR PURPOSE & Headline */}
           <div className="lg:col-span-5">
