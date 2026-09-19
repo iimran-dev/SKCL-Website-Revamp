@@ -1,3 +1,5 @@
+import { UNSPLASH_IMAGES } from "@/lib/constants/images";
+
 /* SKCL site content — single source of truth for all sections */
 
 export const SKCL_NAV = [
@@ -24,8 +26,7 @@ export const SKCL_DEVELOPMENTS = [
     sqft: "4,50,000",
     year: "2024",
     status: "Operational",
-    image:
-      "/generated/dev-one.jpg",
+    image: UNSPLASH_IMAGES.developments.skclOne.url,
     description:
       "A glass-and-steel landmark engineered for global technology enterprises on Chennai's IT corridor.",
   },
@@ -35,8 +36,7 @@ export const SKCL_DEVELOPMENTS = [
     sqft: "3,20,000",
     year: "2022",
     status: "Operational",
-    image:
-      "/generated/dev-square.jpg",
+    image: UNSPLASH_IMAGES.developments.skclSquare.url,
     description:
       "A premium corporate address in the commercial heart of the city, designed for institutional tenants.",
   },
@@ -46,8 +46,7 @@ export const SKCL_DEVELOPMENTS = [
     sqft: "5,80,000",
     year: "2025",
     status: "Under Construction",
-    image:
-      "/generated/dev-horizon.jpg",
+    image: UNSPLASH_IMAGES.developments.skclHorizon.url,
     description:
       "Next-generation Grade A workspace with integrated campus infrastructure and landscape courtyards.",
   },
@@ -57,8 +56,7 @@ export const SKCL_DEVELOPMENTS = [
     sqft: "3,95,000",
     year: "2026",
     status: "Upcoming",
-    image:
-      "/generated/dev-gateway.jpg",
+    image: UNSPLASH_IMAGES.developments.skclGateway.url,
     description:
       "A built-to-suit business campus for a Fortune 500 anchor tenant on the western growth corridor.",
   },
@@ -85,20 +83,17 @@ export const SKCL_VERTICALS = [
   {
     title: "Commercial Development",
     copy: "Grade A office environments engineered for global enterprises — from concept design to operational handover.",
-    image:
-      "/generated/dev-one.jpg",
+    image: UNSPLASH_IMAGES.verticals.commercial.url,
   },
   {
     title: "Facility Management",
     copy: "Integrated operations that preserve asset value and elevate the everyday experience for tenants.",
-    image:
-      "/generated/facility.jpg",
+    image: UNSPLASH_IMAGES.verticals.facilityManagement.url,
   },
   {
     title: "Joint Ventures",
     copy: "Long-term partnerships with landowners — transforming parcels into institutional-grade commercial assets.",
-    image:
-      "/generated/dev-square.jpg",
+    image: UNSPLASH_IMAGES.verticals.jointVentures.url,
   },
 ];
 
@@ -158,8 +153,7 @@ export const SKCL_INSIGHTS = [
     excerpt:
       "A 5.8 lakh sq.ft Grade A campus begins construction, anchored by two global technology tenants.",
     date: "Mar 2025",
-    image:
-      "/generated/insight.jpg",
+    image: UNSPLASH_IMAGES.insights[0].url,
     featured: true,
   },
   {
@@ -167,32 +161,28 @@ export const SKCL_INSIGHTS = [
     title: "Structural topping-out at SKCL One",
     excerpt: "OMR tower reaches final floor level ahead of schedule.",
     date: "Feb 2025",
-    image:
-      "/generated/dev-horizon.jpg",
+    image: UNSPLASH_IMAGES.insights[1].url,
   },
   {
     category: "Industry Insight",
     title: "Designing for the post-2025 enterprise",
     excerpt: "How floor plates, daylighting and amenity mix are being re-engineered.",
     date: "Jan 2025",
-    image:
-      "/generated/dev-square.jpg",
+    image: UNSPLASH_IMAGES.insights[2].url,
   },
   {
     category: "Facility Innovation",
     title: "Predictive maintenance across the SKCL portfolio",
     excerpt: "Sensor-led operations now cover 100% of operational floor area.",
     date: "Dec 2024",
-    image:
-      "/generated/facility.jpg",
+    image: UNSPLASH_IMAGES.insights[3].url,
   },
   {
     category: "Corporate Announcement",
     title: "SKCL formalises new joint venture practice",
     excerpt: "Dedicated landowner partnership desk now operational.",
     date: "Nov 2024",
-    image:
-      "/generated/dev-gateway.jpg",
+    image: UNSPLASH_IMAGES.insights[4].url,
   },
 ];
 

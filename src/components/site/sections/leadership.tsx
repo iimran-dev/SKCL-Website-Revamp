@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Container, SectionLabel, Reveal } from "../ui/primitives";
 import { SKCL_LEADERSHIP } from "@/lib/data/site";
+import { UNSPLASH_IMAGES } from "@/lib/constants/images";
 
 export function Leadership() {
   return (
@@ -14,8 +15,8 @@ export function Leadership() {
             <Reveal>
               <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
-                  src="/generated/leadership.jpg"
-                  alt="SKCL leadership portrait"
+                  src={UNSPLASH_IMAGES.leadership.url}
+                  alt={UNSPLASH_IMAGES.leadership.alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover grayscale"

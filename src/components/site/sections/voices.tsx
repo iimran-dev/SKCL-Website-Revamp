@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Container, SectionLabel, Reveal } from "../ui/primitives";
 import { SKCL_VOICES } from "@/lib/data/site";
+import { UNSPLASH_IMAGES } from "@/lib/constants/images";
 
 export function Voices() {
   const [index, setIndex] = useState(0);
@@ -26,8 +27,8 @@ export function Voices() {
       {/* background editorial photography */}
       <div className="absolute inset-0">
         <Image
-          src="/generated/insight.jpg"
-          alt=""
+          src={UNSPLASH_IMAGES.voicesBg.url}
+          alt={UNSPLASH_IMAGES.voicesBg.alt}
           fill
           sizes="100vw"
           className="object-cover opacity-[0.06]"

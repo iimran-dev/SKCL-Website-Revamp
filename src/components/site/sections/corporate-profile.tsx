@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Container, SectionLabel, Reveal } from "../ui/primitives";
 import { LuxuryButton } from "../ui/luxury-button";
+import { UNSPLASH_IMAGES } from "@/lib/constants/images";
 
 export function CorporateProfile() {
   return (
@@ -18,8 +19,8 @@ export function CorporateProfile() {
             {/* front page */}
             <div className="skcl-glass relative h-full w-full overflow-hidden p-8">
               <Image
-                src="/generated/dev-horizon.jpg"
-                alt="SKCL corporate profile cover"
+                src={UNSPLASH_IMAGES.corporateProfile.url}
+                alt={UNSPLASH_IMAGES.corporateProfile.alt}
                 fill
                 sizes="(max-width: 1024px) 80vw, 30vw"
                 className="object-cover"

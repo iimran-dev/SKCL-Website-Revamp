@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Container, SectionLabel, Reveal, StaggerGroup, StaggerItem } from "../ui/primitives";
 import { SKCL_SUSTAINABILITY } from "@/lib/data/site";
+import { UNSPLASH_IMAGES } from "@/lib/constants/images";
 
 export function Sustainability() {
   return (
@@ -22,8 +23,8 @@ export function Sustainability() {
       {/* Hero image — architecture merging with landscape */}
       <div className="relative h-[55vh] min-h-[360px] w-full overflow-hidden">
         <Image
-          src="/generated/sustainability.jpg"
-          alt="Sustainable commercial architecture integrated with landscape"
+          src={UNSPLASH_IMAGES.sustainability.url}
+          alt={UNSPLASH_IMAGES.sustainability.alt}
           fill
           sizes="100vw"
           className="object-cover"

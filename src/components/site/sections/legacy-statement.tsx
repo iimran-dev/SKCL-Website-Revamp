@@ -1,70 +1,114 @@
 "use client";
 
 import Image from "next/image";
-import { Container, EditorialHeading, SectionLabel, Reveal } from "../ui/primitives";
-import { Section } from "../ui/primitives";
+import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { UNSPLASH_IMAGES } from "@/lib/constants/images";
 
 export function LegacyStatement() {
   return (
-    <Section id="company" tone="light" className="py-28 md:py-40">
-      <Container>
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-20">
-          {/* Left — massive statement */}
-          <div className="lg:col-span-7">
-            <Reveal>
-              <SectionLabel>Legacy Statement</SectionLabel>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <EditorialHeading className="mt-8">
-                Spaces that empower
-                <br />
-                businesses for
-                <br />
-                <span className="skcl-gold-text">generations.</span>
-              </EditorialHeading>
-            </Reveal>
+    <section
+      id="company"
+      className="relative z-20 -mt-8 bg-navy px-4 pb-12 pt-4 sm:-mt-12 sm:px-6 sm:pb-16 sm:pt-6 md:-mt-16 md:pb-20 lg:px-8"
+    >
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-2xl border border-black/[0.04] bg-white px-7 py-10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] sm:rounded-3xl sm:px-12 sm:py-14 md:px-14 md:py-16 lg:rounded-[2.5rem] lg:px-16 lg:py-18">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
+          {/* Left Column: OUR PURPOSE & Headline */}
+          <div className="lg:col-span-5">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="font-display text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-neutral-400">
+                OUR PURPOSE
+              </span>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="skcl-editorial mt-5 text-3xl font-normal leading-[1.08] tracking-tight text-[#111827] sm:text-4xl lg:text-[2.75rem] xl:text-[3.25rem]"
+            >
+              Spaces that
+              <br />
+              empower people
+              <br />
+              and progress.
+            </motion.h2>
           </div>
 
-          {/* Right — blueprint sketch + annotation + supporting paragraph */}
-          <div className="lg:col-span-5 lg:pt-4">
-            <Reveal delay={0.2}>
-              <div className="relative aspect-[4/5] overflow-hidden">
-                <Image
-                  src="/generated/legacy.jpg"
-                  alt="Architectural elevation study"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-navy/20" />
-                {/* Annotation overlay */}
-                <div className="absolute left-4 top-4 flex items-center gap-2">
-                  <span className="h-1 w-1 bg-gold" />
-                  <span className="font-display text-[0.55rem] uppercase tracking-[0.3em] text-soft-white/80">
-                    Elevation Study · 2014
-                  </span>
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                  <div className="font-display text-[0.55rem] uppercase tracking-[0.3em] text-soft-white/80">
-                    Floor 24
-                  </div>
-                  <div className="font-display text-[0.55rem] uppercase tracking-[0.3em] text-soft-white/80">
-                    +142m
-                  </div>
-                </div>
+          {/* Center Column: Paragraph & Story Action */}
+          <div className="lg:col-span-4 lg:pl-2">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              className="font-sans text-[0.95rem] leading-[1.72] text-[#4B5563] sm:text-base"
+            >
+              For over two decades, SKCL has been shaping Chennai&apos;s
+              commercial landscape with future-ready workspaces, long-term
+              partnerships and uncompromising execution.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-8 sm:mt-10"
+            >
+              <a
+                href="#developments"
+                className="group inline-flex items-center gap-3.5 transition-colors"
+              >
+                <span className="text-sm font-medium text-[#111827] transition-colors group-hover:text-gold">
+                  Our story
+                </span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D1D5DB] text-[#374151] transition-all duration-300 group-hover:border-navy group-hover:bg-navy group-hover:text-soft-white group-hover:translate-x-1">
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Handwritten Annotation & Architectural Line Sketch */}
+          <div className="relative flex flex-col items-center justify-center lg:col-span-3 lg:items-end">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[360px]"
+            >
+              {/* Handwritten script note */}
+              <div className="absolute -top-3 right-0 z-10 -rotate-[6deg] select-none pointer-events-none sm:-top-4 sm:right-2">
+                <span className="skcl-handwriting text-2xl font-normal leading-[1.05] tracking-wide text-[#64748B] sm:text-3xl">
+                  We build
+                  <br />
+                  for what&apos;s next
+                </span>
               </div>
-            </Reveal>
-            <Reveal delay={0.3}>
-              <p className="mt-10 text-lg leading-relaxed text-navy/70">
-                Since 2003, SKCL has developed commercial environments engineered
-                for the long arc of an enterprise — not a single lease cycle. We
-                build the infrastructure of Indian business, and we maintain it
-                for the decades that follow.
-              </p>
-            </Reveal>
+
+              {/* Architectural concept sketch */}
+              <div className="relative aspect-[4/3] w-full pt-4 sm:aspect-square">
+                <Image
+                  src={UNSPLASH_IMAGES.purposeSketch.url}
+                  alt={UNSPLASH_IMAGES.purposeSketch.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 30vw"
+                  className="object-contain mix-blend-multiply"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }

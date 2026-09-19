@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Container } from "../ui/primitives";
 import { LuxuryButton } from "../ui/luxury-button";
+import { UNSPLASH_IMAGES } from "@/lib/constants/images";
 
 export function FinalCta() {
   const ref = useRef<HTMLElement>(null);
@@ -24,8 +25,8 @@ export function FinalCta() {
       {/* Cinematic sunrise skyline background */}
       <motion.div style={{ y: bgY }} className="absolute inset-0">
         <Image
-          src="/generated/final-cta.jpg"
-          alt="Sunrise over the SKCL skyline"
+          src={UNSPLASH_IMAGES.finalCta.url}
+          alt={UNSPLASH_IMAGES.finalCta.alt}
           fill
           priority
           sizes="100vw"

@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { Container } from "../ui/primitives";
 import { LuxuryButton } from "../ui/luxury-button";
 import { BlueprintCaption } from "../ui/primitives";
+import { UNSPLASH_IMAGES } from "@/lib/constants/images";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -18,7 +19,7 @@ export function Hero() {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
   const copyY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
   const metaY = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
   return (
@@ -33,8 +34,8 @@ export function Hero() {
         className="absolute inset-0 will-change-transform"
       >
         <Image
-          src="/generated/hero.jpg"
-          alt="SKCL Grade A commercial development at blue hour"
+          src={UNSPLASH_IMAGES.hero.url}
+          alt={UNSPLASH_IMAGES.hero.alt}
           fill
           priority
           sizes="100vw"
@@ -79,28 +80,18 @@ export function Hero() {
       >
         <Container>
           <div className="max-w-3xl">
-            {/* Label */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-7"
-            >
-              <span className="skcl-label text-gold">Since 2003 · Chennai</span>
-            </motion.div>
 
             {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="skcl-editorial text-soft-white text-[2.7rem] leading-[0.98] sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+              className="skcl-editorial text-soft-white text-[2.7rem] leading-[0.98] sm:text-6xl md:text-7xl lg:text-[5.25rem] mt-15"
             >
               Building Chennai&apos;s
               <br />
               <span className="skcl-gold-text">Business Landscape</span>
-              <br />
-              Since 2003
+
             </motion.h1>
 
             {/* Supporting copy */}
@@ -123,9 +114,6 @@ export function Hero() {
             >
               <LuxuryButton href="#developments" variant="gold" withArrow>
                 Explore Developments
-              </LuxuryButton>
-              <LuxuryButton href="#company" variant="outline-light">
-                Corporate Profile
               </LuxuryButton>
             </motion.div>
           </div>
@@ -157,15 +145,6 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-3 md:flex">
-        <span className="font-display text-[0.6rem] uppercase tracking-[0.32em] text-soft-white/65">
-          Scroll
-        </span>
-        <span className="relative flex h-10 w-px overflow-hidden bg-soft-white/25">
-          <span className="absolute inset-x-0 top-0 h-4 bg-gold skcl-scroll-hint" />
-        </span>
-      </div>
     </section>
   );
 }

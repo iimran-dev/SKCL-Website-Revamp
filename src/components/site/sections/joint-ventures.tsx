@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
 import { Container, SectionLabel, Reveal, StaggerGroup, StaggerItem } from "../ui/primitives";
 import { cn } from "@/lib/utils";
+import { UNSPLASH_IMAGES } from "@/lib/constants/images";
 
 export function JointVentures() {
   const [pos, setPos] = useState(50);
@@ -63,8 +64,8 @@ export function JointVentures() {
           >
             {/* After (full) */}
             <Image
-              src="/generated/dev-gateway.jpg"
-              alt="Grade A commercial campus"
+              src={UNSPLASH_IMAGES.jointVentures.afterCampus.url}
+              alt={UNSPLASH_IMAGES.jointVentures.afterCampus.alt}
               fill
               sizes="(max-width: 1024px) 100vw, 80vw"
               className="object-cover"
@@ -76,8 +77,8 @@ export function JointVentures() {
               style={{ width: `${pos}%` }}
             >
               <Image
-                src="/generated/jv-land.jpg"
-                alt="Undeveloped land parcel"
+                src={UNSPLASH_IMAGES.jointVentures.beforeLand.url}
+                alt={UNSPLASH_IMAGES.jointVentures.beforeLand.alt}
                 fill
                 sizes="80vw"
                 className="object-cover grayscale"
