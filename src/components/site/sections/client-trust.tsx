@@ -12,7 +12,7 @@ function ClientMarquee() {
         {list.map((name, i) => (
           <span
             key={`${name}-${i}`}
-            className="skcl-editorial text-3xl text-soft-white/40 transition-colors duration-500 hover:text-soft-white md:text-4xl"
+            className="skcl-editorial text-xl text-soft-white/40 transition-colors duration-500 hover:text-soft-white md:text-2xl"
           >
             {name}
           </span>

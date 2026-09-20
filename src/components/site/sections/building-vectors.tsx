@@ -221,7 +221,8 @@ export function Building2003({ isHovered, className }: BuildingVectorProps) {
 export function Building2007({ isHovered, className }: BuildingVectorProps) {
   return (
     <svg
-      viewBox="0 0 190 200"
+      viewBox="0 0 190 190"
+      preserveAspectRatio="xMidYMax meet"
       className={className ?? "w-full h-auto"}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -396,7 +397,8 @@ export function Building2007({ isHovered, className }: BuildingVectorProps) {
 export function Building2012({ isHovered, className }: BuildingVectorProps) {
   return (
     <svg
-      viewBox="0 0 220 240"
+      viewBox="0 0 220 222"
+      preserveAspectRatio="xMidYMax meet"
       className={className ?? "w-full h-auto"}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -556,7 +558,8 @@ export function Building2012({ isHovered, className }: BuildingVectorProps) {
 export function Building2017({ isHovered, className }: BuildingVectorProps) {
   return (
     <svg
-      viewBox="0 0 240 280"
+      viewBox="0 0 240 260"
+      preserveAspectRatio="xMidYMax meet"
       className={className ?? "w-full h-auto"}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -715,7 +718,8 @@ export function Building2017({ isHovered, className }: BuildingVectorProps) {
 export function Building2021({ isHovered, className }: BuildingVectorProps) {
   return (
     <svg
-      viewBox="0 0 270 320"
+      viewBox="0 0 270 300"
+      preserveAspectRatio="xMidYMax meet"
       className={className ?? "w-full h-auto"}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -899,7 +903,8 @@ export function Building2021({ isHovered, className }: BuildingVectorProps) {
 export function Building2026({ isHovered, className }: BuildingVectorProps) {
   return (
     <svg
-      viewBox="0 0 300 360"
+      viewBox="0 0 300 340"
+      preserveAspectRatio="xMidYMax meet"
       className={className ?? "w-full h-auto"}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

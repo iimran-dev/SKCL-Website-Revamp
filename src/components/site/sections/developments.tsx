@@ -59,7 +59,7 @@ export function Developments() {
     <section
       ref={sectionRef}
       id="developments"
-      className="relative w-full overflow-hidden bg-navy text-soft-white lg:h-[100svh]"
+      className="relative w-full overflow-hidden bg-navy text-soft-white lg:h-[100svh] pb-10 lg:pb-0"
     >
       {/* Header */}
       <Container className="w-full lg:absolute lg:inset-x-0 lg:top-12 xl:top-14 lg:z-20">
