@@ -1,8 +1,13 @@
 import type { NextConfig } from "next";
 
+const basePath = "/skcl";
+
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: "/skcl",
+  basePath,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

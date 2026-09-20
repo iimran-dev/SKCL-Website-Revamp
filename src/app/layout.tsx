@@ -3,6 +3,7 @@ import { Inter, Playfair_Display, Space_Grotesk, Caveat } from "next/font/google
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SmoothScrollProvider } from "@/components/site/providers/smooth-scroll-provider";
+import { getAssetPath } from "@/lib/utils";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
   creator: "SKCL",
   publisher: "SKCL",
   icons: {
-    icon: "/logo.svg",
+    icon: getAssetPath("/logo.svg"),
   },
   openGraph: {
     title: "SKCL — Building Chennai's Business Landscape Since 2003",

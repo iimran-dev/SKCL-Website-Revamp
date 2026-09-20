@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { UNSPLASH_IMAGES } from "@/lib/constants/images";
+import { getAssetPath } from "@/lib/utils";
 
 export function LegacyStatement() {
   return (
@@ -97,7 +98,7 @@ export function LegacyStatement() {
               {/* Architectural concept sketch */}
               <div className="relative aspect-[4/3] w-full pt-4 sm:aspect-square">
                 <Image
-                  src={UNSPLASH_IMAGES.purposeSketch.url}
+                  src={getAssetPath(UNSPLASH_IMAGES.purposeSketch.url)}
                   alt={UNSPLASH_IMAGES.purposeSketch.alt}
                   fill
                   priority

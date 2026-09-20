@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container, Reveal } from "../ui/primitives";
+import { getAssetPath } from "@/lib/utils";
 
 const CHENNAI_PIN_NODES = [
   {
@@ -60,7 +61,7 @@ export function ChennaiFootprint() {
       {/* Background Satellite Night Map - full width from left=0 to right=0 */}
       <div className="pointer-events-none absolute inset-y-0 left-0 right-0 z-0 w-full h-full select-none overflow-hidden">
         <Image
-          src="/chennai-map.svg"
+          src={getAssetPath("/chennai-map.svg")}
           alt="Chennai Satellite Map at Night"
           fill
           priority
