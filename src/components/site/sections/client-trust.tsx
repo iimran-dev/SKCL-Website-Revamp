@@ -50,33 +50,10 @@ export function ClientTrust() {
 
       {/* Marquee */}
       <div className="relative">
-        {/* edge fades */}
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-navy to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-navy to-transparent" />
         <ClientMarquee />
       </div>
-
-      <Container>
-        <div className="mt-14 grid grid-cols-2 gap-8 border-t border-white/10 pt-10 md:grid-cols-4">
-          {[
-            { v: "60+", l: "Enterprise Tenants" },
-            { v: "9", l: "Operational Assets" },
-            { v: "92%", l: "Renewal Rate" },
-            { v: "14 yrs", l: "Avg. Relationship" },
-          ].map((s) => (
-            <Reveal key={s.l}>
-              <div className="flex flex-col">
-                <span className="skcl-editorial text-3xl text-soft-white md:text-4xl">
-                  {s.v}
-                </span>
-                <span className="mt-2 font-display text-[0.6rem] uppercase tracking-[0.28em] text-soft-white/45">
-                  {s.l}
-                </span>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
     </section>
   );
 }

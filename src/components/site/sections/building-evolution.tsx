@@ -1,204 +1,247 @@
 "use client";
 
-import { useRef } from "react";
-import { Container, SectionLabel, Reveal } from "../ui/primitives";
+import { useState, useRef } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight, Building2, Sparkles, Layers } from "lucide-react";
+import { Container, Reveal } from "../ui/primitives";
 import { SKCL_TIMELINE_MILESTONES } from "@/lib/data/site";
-import { gsap, ScrollTrigger, useLenisScrollTrigger } from "@/hooks/use-gsap";
-import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
+import {
+  Building2003,
+  Building2007,
+  Building2012,
+  Building2017,
+  Building2021,
+  Building2026,
+} from "./building-vectors";
+import { cn } from "@/lib/utils";
+
+// Map each milestone year to its vector hand-drawn architectural illustration
+const VECTOR_BUILDINGS = [
+  { Component: Building2003, heightClass: "h-[115px] sm:h-[135px] md:h-[155px] lg:h-[165px]" },
+  { Component: Building2007, heightClass: "h-[140px] sm:h-[165px] md:h-[185px] lg:h-[200px]" },
+  { Component: Building2012, heightClass: "h-[168px] sm:h-[195px] md:h-[220px] lg:h-[240px]" },
+  { Component: Building2017, heightClass: "h-[198px] sm:h-[230px] md:h-[260px] lg:h-[285px]" },
+  { Component: Building2021, heightClass: "h-[228px] sm:h-[265px] md:h-[300px] lg:h-[330px]" },
+  { Component: Building2026, heightClass: "h-[258px] sm:h-[300px] md:h-[345px] lg:h-[380px]" },
+];
 
 export function BuildingEvolution() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const svgRef = useRef<SVGSVGElement>(null);
-  useLenisScrollTrigger();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(5); // default to 2026 flagship
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  useIsomorphicLayoutEffect(() => {
-    if (typeof window === "undefined") return;
-    const section = sectionRef.current;
-    const svg = svgRef.current;
-    if (!section || !svg) return;
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = direction === "left" ? -320 : 320;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-      mm.add({ isDesktop: "(min-width: 768px)" }, () => {
-        const layers = svg.querySelectorAll<SVGElement>("[data-layer]");
-        layers.forEach((layer) => {
-          const final = Number(layer.dataset.final ?? "1");
-          const isBase = layer.dataset.layer === "1";
-          // Wireframe (layer 1) is visible from the start so the stage never looks empty;
-          // subsequent layers scrub in as the user scrolls.
-          gsap.set(layer, { opacity: isBase ? final : 0 });
-          if (layer.tagName === "path" || layer.tagName === "line" || layer.tagName === "rect") {
-            const el = layer as unknown as SVGGeometryElement;
-            if (typeof el.getTotalLength === "function") {
-              const length = el.getTotalLength();
-              gsap.set(layer, {
-                strokeDasharray: length,
-                strokeDashoffset: isBase ? 0 : length,
-              });
-            }
-          }
-          if (isBase) return; // base layer is static — no scrub needed
-          gsap.to(layer, {
-            opacity: final,
-            strokeDashoffset: 0,
-            duration: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: 1,
-            },
-          });
-        });
-      });
-    }, sectionRef);
-
-    const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 500);
-    return () => {
-      clearTimeout(refreshTimer);
-      ctx.revert();
-    };
-  }, []);
+  const activeMilestone = SKCL_TIMELINE_MILESTONES[hoveredIndex ?? activeIndex];
 
   return (
     <section
-      ref={sectionRef}
       id="evolution"
-      className="relative w-full overflow-hidden bg-soft-white"
-      style={{ height: "200vh" }}
+      className="relative w-full ov erflow-hidden border-y border-navy/10"
+      style={{
+        background:
+          "linear-gradient(180deg, #d3e7f8 0%, #dff0fa 25%, #ecf5fb 50%, #f7fafd 80%, #ffffff 100%)",
+      }}
     >
-      {/* Sticky stage — stays fixed while you scroll through the section */}
-      <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-soft-white">
-        <div className="skcl-grid-bg-dark pointer-events-none absolute inset-0 opacity-50" />
+      {/* =========================================================================
+          ATMOSPHERIC SKYLINE BACKDROP & DISTANT MISTY CITY SILHOUETTES
+          ========================================================================= */}
+      <div className="pointer-events-none absolute inset-0 select-none overflow-hidden">
+        {/* Soft atmospheric cloud wisps */}
+        <div
+          className="absolute inset-x-0 top-0 h-96 opacity-45"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 80%)",
+          }}
+        />
 
-        {/* Header */}
-        <Container className="absolute inset-x-0 top-0 z-20 pt-28">
-          <Reveal>
-            <SectionLabel>Building Evolution</SectionLabel>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="mt-6 max-w-2xl skcl-editorial text-4xl text-navy md:text-5xl lg:text-6xl">
-              From wireframe to landmark — two decades of disciplined assembly.
-            </h2>
-          </Reveal>
-        </Container>
+        {/* Distant panoramic city skyline silhouette */}
+        <svg
+          className="absolute bottom-28 inset-x-0 w-full h-44 text-navy/10 preserve-3d"
+          viewBox="0 0 1600 180"
+          fill="currentColor"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {/* Faint distant layer */}
+          <path
+            opacity="0.5"
+            d="M0 180 L0 140 L35 140 L35 110 L55 110 L55 140 L90 140 L90 95 L115 95 L115 140 L160 140 L160 120 L195 120 L195 140 L250 140 L250 75 L280 75 L280 140 L340 140 L340 105 L370 105 L370 140 L430 140 L430 85 L465 85 L465 140 L530 140 L530 65 L555 65 L555 140 L620 140 L620 100 L650 100 L650 140 L720 140 L720 70 L750 70 L750 140 L820 140 L820 115 L850 115 L850 140 L910 140 L910 80 L945 80 L945 140 L1010 140 L1010 60 L1040 60 L1040 140 L1110 140 L1110 95 L1140 95 L1140 140 L1210 140 L1210 85 L1245 85 L1245 140 L1310 140 L1310 70 L1345 70 L1345 140 L1410 140 L1410 105 L1440 105 L1440 140 L1500 140 L1500 90 L1530 90 L1530 140 L1600 140 L1600 180 Z"
+          />
+          {/* Mid-distance layer with architectural spires */}
+          <path
+            opacity="0.8"
+            d="M0 180 L0 155 L45 155 L45 130 L70 130 L70 155 L130 155 L130 115 L140 90 L150 115 L160 115 L160 155 L210 155 L210 125 L245 125 L245 155 L310 155 L310 100 L340 100 L340 155 L400 155 L400 135 L435 135 L435 155 L490 155 L490 110 L520 110 L520 155 L580 155 L580 125 L615 125 L615 155 L680 155 L680 90 L695 65 L710 90 L715 155 L770 155 L770 130 L805 130 L805 155 L870 155 L870 105 L900 105 L900 155 L960 155 L960 120 L995 120 L995 155 L1060 155 L1060 85 L1075 55 L1090 85 L1100 155 L1160 155 L1160 125 L1190 125 L1190 155 L1260 155 L1260 100 L1295 100 L1295 155 L1360 155 L1360 130 L1390 130 L1390 155 L1450 155 L1450 115 L1480 115 L1480 155 L1540 155 L1540 130 L1570 130 L1570 155 L1600 155 L1600 180 Z"
+          />
+        </svg>
 
-        {/* SVG stage */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <svg
-            ref={svgRef}
-            viewBox="0 0 600 700"
-            className="h-[80vh] w-auto"
-            fill="none"
-            aria-label="Building assembly animation"
-          >
-            {/* Ground line */}
-            <line
-              x1="40" y1="620" x2="560" y2="620"
-              stroke="#071525" strokeOpacity="0.25" strokeWidth="1"
-            />
-
-            {/* LAYER 1 — Wireframe outline */}
-            <g data-layer="1" data-final="0.9" stroke="#5e6470" strokeWidth="1.5">
-              <rect x="180" y="160" width="240" height="460" />
-              <line x1="180" y1="280" x2="420" y2="280" />
-              <line x1="180" y1="400" x2="420" y2="400" />
-              <line x1="180" y1="520" x2="420" y2="520" />
-            </g>
-
-            {/* LAYER 2 — Steel structure */}
-            <g data-layer="2" data-final="0.85" stroke="#071525" strokeWidth="2.5">
-              <line x1="180" y1="160" x2="180" y2="620" />
-              <line x1="240" y1="160" x2="240" y2="620" />
-              <line x1="300" y1="160" x2="300" y2="620" />
-              <line x1="360" y1="160" x2="360" y2="620" />
-              <line x1="420" y1="160" x2="420" y2="620" />
-              <line x1="180" y1="220" x2="420" y2="220" />
-              <line x1="180" y1="340" x2="420" y2="340" />
-              <line x1="180" y1="460" x2="420" y2="460" />
-              <line x1="180" y1="580" x2="420" y2="580" />
-            </g>
-
-            {/* LAYER 3 — Glass facade */}
-            <g data-layer="3" data-final="0.55" fill="#3b82f6" fillOpacity="0.08">
-              <rect x="184" y="224" width="52" height="112" />
-              <rect x="244" y="224" width="52" height="112" />
-              <rect x="304" y="224" width="52" height="112" />
-              <rect x="364" y="224" width="52" height="112" />
-              <rect x="184" y="344" width="52" height="112" />
-              <rect x="244" y="344" width="52" height="112" />
-              <rect x="304" y="344" width="52" height="112" />
-              <rect x="364" y="344" width="52" height="112" />
-              <rect x="184" y="464" width="52" height="112" />
-              <rect x="244" y="464" width="52" height="112" />
-              <rect x="304" y="464" width="52" height="112" />
-              <rect x="364" y="464" width="52" height="112" />
-            </g>
-
-            {/* LAYER 4 — Landscape */}
-            <g data-layer="4" data-final="0.9">
-              <path
-                d="M120 620 Q150 580 180 620 Q210 585 240 620 Q270 590 300 620"
-                stroke="#5e6470" strokeWidth="1.5" fill="none"
-              />
-              <path
-                d="M320 620 Q360 580 400 620 Q440 585 480 620"
-                stroke="#5e6470" strokeWidth="1.5" fill="none"
-              />
-              <circle cx="130" cy="610" r="8" fill="#5e6470" fillOpacity="0.4" />
-              <circle cx="470" cy="610" r="8" fill="#5e6470" fillOpacity="0.4" />
-            </g>
-
-            {/* LAYER 5 — Lighting (window glow) */}
-            <g data-layer="5" data-final="1" fill="#b68b4c">
-              <rect x="190" y="230" width="40" height="100" fillOpacity="0.6" />
-              <rect x="250" y="350" width="40" height="100" fillOpacity="0.5" />
-              <rect x="310" y="230" width="40" height="100" fillOpacity="0.7" />
-              <rect x="370" y="470" width="40" height="90" fillOpacity="0.6" />
-              <rect x="190" y="470" width="40" height="90" fillOpacity="0.5" />
-              <rect x="310" y="470" width="40" height="90" fillOpacity="0.7" />
-            </g>
-
-            {/* Annotation marks */}
-            <g stroke="#b68b4c" strokeOpacity="0.5" strokeWidth="0.75">
-              <line x1="420" y1="220" x2="470" y2="220" />
-              <line x1="470" y1="218" x2="470" y2="222" />
-              <line x1="420" y1="460" x2="470" y2="460" />
-              <line x1="470" y1="458" x2="470" y2="462" />
-            </g>
-          </svg>
-        </div>
-
-        {/* caption */}
-        <div className="absolute bottom-10 left-6 z-20 md:left-10 lg:left-16">
-          <span className="font-display text-[0.6rem] uppercase tracking-[0.3em] text-steel">
-            Assembly Sequence · 2003 → 2026
-          </span>
-        </div>
+        {/* Faint architectural coordinate grid */}
+        <div className="skcl-grid-bg-dark absolute inset-0 opacity-25" />
       </div>
 
-      {/* Timeline — appears after the sticky assembly, in normal flow */}
-      <Container className="relative z-10 -mt-32 pb-24">
-        <div className="mx-auto max-w-5xl">
-          <div className="h-px w-full bg-navy/15" />
-          <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-6">
-            {SKCL_TIMELINE_MILESTONES.map((m, i) => (
-              <Reveal key={m.year} delay={i * 0.06}>
-                <div className="flex flex-col">
-                  <span className="skcl-editorial text-2xl text-navy md:text-3xl">
-                    {m.year}
-                  </span>
-                  <span className="mt-2 font-display text-[0.6rem] uppercase tracking-[0.2em] text-gold">
-                    {m.title}
-                  </span>
-                  <span className="mt-1 text-xs leading-snug text-steel">
-                    {m.note}
-                  </span>
-                </div>
-              </Reveal>
-            ))}
+      <Container className="relative z-10 pt-16 md:pt-20 lg:pt-24 pb-14 md:pb-16">
+        {/* =========================================================================
+            HEADER BAR (Matches exact reference design: Title Left, Button Right)
+            ========================================================================= */}
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <Reveal>
+              <div className="flex items-center gap-2.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+                <span className="font-display text-[0.72rem] uppercase tracking-[0.32em] text-steel font-semibold">
+                  OUR SKCL JOURNEY
+                </span>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <h2 className="mt-3 skcl-editorial text-4xl sm:text-5xl md:text-6xl text-navy leading-[1.08] tracking-tight">
+                A Stronger Tomorrow,<br />
+                Built Over Time
+              </h2>
+            </Reveal>
           </div>
+
+          {/* Top Right Journey CTA Pill Button */}
+          <Reveal delay={0.16}>
+            <div className="flex items-center gap-4">
+              <a
+                href="#developments"
+                className="group inline-flex items-center gap-3.5 rounded-full bg-white/80 hover:bg-navy hover:text-white px-5 py-2.5 transition-all duration-300 border border-navy/15 text-navy shadow-xs backdrop-blur-xs"
+                aria-label="Explore our journey"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-navy/20 group-hover:border-white/40 group-hover:bg-white/10 transition-colors">
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
+                <span className="font-display text-sm font-semibold tracking-wide">
+                  Our journey
+                </span>
+              </a>
+
+              {/* Mobile Scroll Controls */}
+              <div className="flex md:hidden items-center gap-1.5">
+                <button
+                  onClick={() => scroll("left")}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/15 bg-white/80 text-navy hover:bg-navy hover:text-white transition-colors"
+                  aria-label="Previous building"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => scroll("right")}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-navy/15 bg-white/80 text-navy hover:bg-navy hover:text-white transition-colors"
+                  aria-label="Next building"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
+
+        {/*
+            THE 6 VECTOR HAND-DRAWN BUILDINGS ALONG HORIZONTAL BASELINE */}
+        <div className="relative mt-8 md:mt-12 lg:mt-16">
+          {/* Scrollable container for mobile/tablets; fluid flex layout on desktop */}
+          <div
+            ref={scrollContainerRef}
+            className="no-scrollbar flex overflow-x-auto pb-6 pt-4 snap-x snap-mandatory md:overflow-x-visible md:pb-0"
+          >
+            <div className="relative flex min-w-[920px] w-full items-end justify-between px-2 md:px-0">
+              {SKCL_TIMELINE_MILESTONES.map((milestone, index) => {
+                const { Component, heightClass } = VECTOR_BUILDINGS[index];
+                const isHovered = hoveredIndex === index;
+                const isActive = activeIndex === index;
+
+                return (
+                  <div
+                    key={milestone.year}
+                    className="group relative flex flex-1 flex-col items-center justify-end px-1 sm:px-2 md:px-3 snap-center cursor-pointer transition-all duration-300"
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    onClick={() => setActiveIndex(index)}
+                  >
+                    {/* Hover Floating Specification Tooltip */}
+                    <div
+                      className={cn(
+                        "pointer-events-none absolute -top-14 z-30 transition-all duration-300",
+                        isHovered || isActive
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 translate-y-2 pointer-events-none"
+                      )}
+                    >
+                      <div className="rounded-md bg-navy px-3 py-1.5 text-center text-white shadow-xl border border-white/10 whitespace-nowrap">
+                        <div className="font-display text-[0.68rem] font-bold tracking-wider text-gold uppercase">
+                          {milestone.typology}
+                        </div>
+                        <div className="font-mono text-[0.62rem] text-white/80">
+                          {milestone.sqft}
+                        </div>
+                        {/* Triangle arrow */}
+                        <div className="absolute left-1/2 -bottom-1.5 -translate-x-1/2 border-4 border-transparent border-t-navy" />
+                      </div>
+                    </div>
+
+                    {/* Vector Hand-Drawn Building Artwork */}
+                    <div
+                      className={cn(
+                        "relative flex w-full items-end justify-center transition-transform duration-300",
+                        isHovered ? "-translate-y-1.5 scale-[1.02]" : "translate-y-0 scale-100"
+                      )}
+                    >
+                      <div className={cn("w-full flex items-end justify-center", heightClass)}>
+                        <Component
+                          isHovered={isHovered || isActive}
+                          className="h-full w-auto max-w-full drop-shadow-[0_4px_12px_rgba(7,21,37,0.06)]"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Milestone Timeline Anchor Node */}
+                    <div className="relative mt-3 flex items-center justify-center">
+                      <div
+                        className={cn(
+                          "h-2.5 w-2.5 rounded-full border-2 transition-all duration-300",
+                          isHovered || isActive
+                            ? "border-gold bg-navy scale-125 shadow-xs"
+                            : "border-navy/30 bg-white"
+                        )}
+                      />
+                    </div>
+
+                    {/* Milestone Year and Subtitle (Directly under each building) */}
+                    <div className="mt-2.5 text-center transition-colors duration-200">
+                      <span
+                        className={cn(
+                          "block font-display text-lg sm:text-xl md:text-2xl font-bold tracking-tight transition-colors",
+                          isHovered || isActive ? "text-navy" : "text-navy/85"
+                        )}
+                      >
+                        {milestone.year}
+                      </span>
+                      <span
+                        className={cn(
+                          "mt-0.5 block text-[0.72rem] sm:text-xs md:text-sm font-medium transition-colors line-clamp-1",
+                          isHovered || isActive ? "text-gold font-semibold" : "text-steel"
+                        )}
+                      >
+                        {milestone.title}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Continuous Ground Baseline (Runs behind all 6 nodes) */}
+          <div className="pointer-events-none absolute bottom-[68px] sm:bottom-[72px] md:bottom-[76px] inset-x-0 h-px bg-navy/20" />
         </div>
       </Container>
     </section>

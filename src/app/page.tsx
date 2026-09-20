@@ -27,17 +27,13 @@ export default function Home() {
         <LegacyStatement />
         <ImpactMetrics />
         <Developments />
-        <BuildingEvolution />
         <ChennaiFootprint />
+        <BuildingEvolution />
         <BusinessVerticals />
         <WhyChooseSkcl />
         <ClientTrust />
-        <Voices />
         <Insights />
-        <FacilityManagement />
-        <JointVentures />
         <Sustainability />
-        <Leadership />
         <CorporateProfile />
         <FinalCta />
         <Footer />

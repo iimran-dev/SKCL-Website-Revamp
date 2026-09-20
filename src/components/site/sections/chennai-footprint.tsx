@@ -1,171 +1,128 @@
 "use client";
 
 import { useState } from "react";
-import { Container, SectionLabel, Reveal, BlueprintCaption } from "../ui/primitives";
-import { SKCL_CHENNAI_LOCATIONS } from "@/lib/data/site";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Container, Reveal } from "../ui/primitives";
+
+const CHENNAI_PIN_NODES = [
+  {
+    id: "ambattur",
+    name: "Ambattur",
+    x: 53.5,
+    y: 26.5,
+    labelPos: "right" as const,
+    tag: "West Industrial & Tech Hub",
+    title: "Fast-Track Enterprise Corridor",
+    desc: "Robust manufacturing, logistics, and built-to-suit technology infrastructure.",
+  },
+  {
+    id: "guindy",
+    name: "Guindy",
+    x: 67.5,
+    y: 49.5,
+    labelPos: "bottom" as const,
+    tag: "Central CBD & Transit Node",
+    title: "SKCL Horizon & Transit Spine",
+    desc: "Multi-modal connectivity intersecting metro, airport, and institutional centers.",
+  },
+  {
+    id: "kotturpuram",
+    name: "Kotturpuram",
+    x: 78.5,
+    y: 46.5,
+    labelPos: "right" as const,
+    tag: "Prestige Riverfront Corridor",
+    title: "SKCL Square & Premium Offices",
+    desc: "Prime address along the Adyar riverfront near academic and commercial landmarks.",
+  },
+  {
+    id: "taramani",
+    name: "Taramani",
+    x: 70.0,
+    y: 75.5,
+    labelPos: "right" as const,
+    tag: "OMR IT Gateway Corridor",
+    title: "SKCL One & Technology Parks",
+    desc: "Epicenter of Chennai's technology highway, housing global Fortune 500 enterprises.",
+  },
+];
 
 export function ChennaiFootprint() {
-  const [active, setActive] = useState<number | null>(0);
-  const current = active !== null ? SKCL_CHENNAI_LOCATIONS[active] : null;
+  const [activePin, setActivePin] = useState<string | null>(null);
 
   return (
     <section
       id="footprint"
-      className="relative overflow-hidden bg-navy py-24 text-soft-white md:py-32"
+      className="relative flex min-h-[400px] sm:min-h-[430px] md:min-h-[460px] w-full items-center overflow-hidden bg-navy py-10 sm:py-12 md:py-14 text-soft-white"
     >
-      <div className="skcl-grid-bg pointer-events-none absolute inset-0 opacity-40" />
-      <Container>
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Left — copy */}
-          <div className="lg:col-span-4">
+      {/* Background Satellite Night Map - full width from left=0 to right=0 */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 right-0 z-0 w-full h-full select-none overflow-hidden">
+        <Image
+          src="/chennai-map.svg"
+          alt="Chennai Satellite Map at Night"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-right md:object-center opacity-90"
+        />
+      </div>
+
+
+      {/* Right Editorial Accent (matching mockup) */}
+      <div className="pointer-events-none absolute right-8 lg:right-14 top-1/2 -translate-y-1/2 z-10 hidden xl:block select-none text-right">
+        <p className="font-display text-[0.68rem] uppercase tracking-[0.28em] text-soft-white/35 leading-[1.85]">
+          More than<br />buildings<br />A stronger<br />Chennai
+        </p>
+      </div>
+
+      {/* Foreground Content Container */}
+      <Container className="relative z-20 w-full">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+          {/* Left Column: Copy & Explore CTA */}
+          <div className="max-w-md lg:col-span-5">
             <Reveal>
-              <SectionLabel>Chennai Footprint</SectionLabel>
+              <span className="font-display text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-neutral-400">
+                OUR FOOTPRINT
+              </span>
             </Reveal>
-            <Reveal delay={0.1}>
-              <h2 className="mt-6 skcl-editorial text-4xl text-soft-white md:text-5xl">
-                A command center view of the SKCL network.
+
+            <Reveal delay={0.08}>
+              <h2 className="skcl-editorial mt-3 text-2xl font-normal leading-[1.12] tracking-tight text-soft-white sm:text-3xl lg:text-[2.65rem]">
+                Strategically
+                <br />
+                across Chennai
               </h2>
             </Reveal>
-            <Reveal delay={0.2}>
-              <p className="mt-6 max-w-sm text-sm leading-relaxed text-soft-white/60">
-                Developments positioned along Chennai&apos;s principal
-                commercial corridors — OMR, Guindy, Porur and T. Nagar — connected
-                to the city&apos;s transit and talent infrastructure.
+
+            <Reveal delay={0.14}>
+              <p className="mt-3.5 max-w-sm font-sans text-xs leading-[1.65] text-soft-white/70 sm:text-sm">
+                Prime locations. Greater possibilities.
+                <br className="hidden sm:inline" />
+                {" "}Our developments are positioned
+                <br className="hidden sm:inline" />
+                {" "}where business and people thrive.
               </p>
             </Reveal>
 
-            {/* Active location detail */}
-            <Reveal delay={0.3}>
-              <div className="mt-10 border-t border-white/10 pt-6">
-                {current ? (
-                  <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-gold skcl-shimmer" />
-                      <span className="skcl-label text-gold">Active Node</span>
-                    </div>
-                    <p className="skcl-editorial text-2xl text-soft-white">
-                      {current.name}
-                    </p>
-                    <div className="grid grid-cols-2 gap-4">
-                      <BlueprintCaption label="Area" value={current.area} tone="onDark" />
-                      <BlueprintCaption label="Status" value={current.status} tone="onDark" />
-                    </div>
-                  </div>
-                ) : (
-                  <p className="text-sm text-soft-white/50">
-                    Hover a location to inspect.
-                  </p>
-                )}
+            <Reveal delay={0.2}>
+              <div className="mt-5">
+                <a
+                  href="#developments"
+                  className="group inline-flex items-center gap-3 text-xs sm:text-sm font-medium tracking-wide text-soft-white transition-colors duration-300 hover:text-gold"
+                >
+                  <span>Explore on Map</span>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 transition-all duration-300 group-hover:scale-105 group-hover:border-gold group-hover:bg-gold/10">
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </span>
+                </a>
               </div>
             </Reveal>
-          </div>
-
-          {/* Right — map */}
-          <div className="lg:col-span-8">
-            <div className="relative aspect-[4/3] w-full overflow-hidden border border-white/10 bg-navy">
-              {/* radial vignette */}
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_60%)]" />
-
-              {/* network route lines */}
-              <svg
-                className="absolute inset-0 h-full w-full"
-                viewBox="0 0 100 75"
-                preserveAspectRatio="none"
-                aria-hidden
-              >
-                <g stroke="#b68b4c" strokeOpacity="0.25" strokeWidth="0.15" strokeDasharray="0.6 0.6">
-                  <line x1="78" y1="56" x2="44" y2="64" />
-                  <line x1="78" y1="56" x2="56" y2="70" />
-                  <line x1="56" y1="70" x2="28" y2="60" />
-                  <line x1="78" y1="56" x2="84" y2="68" />
-                  <line x1="44" y1="64" x2="56" y2="70" />
-                </g>
-              </svg>
-
-              {/* Chennai coastline suggestion */}
-              <svg
-                className="absolute inset-0 h-full w-full opacity-20"
-                viewBox="0 0 100 75"
-                preserveAspectRatio="none"
-                aria-hidden
-              >
-                <path
-                  d="M82 0 Q78 18 84 36 Q88 52 82 75"
-                  stroke="#3b82f6"
-                  strokeWidth="0.3"
-                  fill="none"
-                />
-              </svg>
-
-              {/* coordinate ticks */}
-              <div className="absolute left-3 top-3 font-display text-[0.5rem] uppercase tracking-[0.2em] text-soft-white/30">
-                13.04°N · 80.25°E
-              </div>
-              <div className="absolute right-3 top-3 font-display text-[0.5rem] uppercase tracking-[0.2em] text-soft-white/30">
-                CHN · GRID 04
-              </div>
-
-              {/* location nodes */}
-              {SKCL_CHENNAI_LOCATIONS.map((loc, i) => {
-                const isActive = active === i;
-                return (
-                  <button
-                    key={loc.name}
-                    type="button"
-                    onMouseEnter={() => setActive(i)}
-                    onFocus={() => setActive(i)}
-                    onClick={() => setActive(i)}
-                    className="group absolute -translate-x-1/2 -translate-y-1/2"
-                    style={{ left: `${loc.x}%`, top: `${(loc.y / 75) * 100}%` }}
-                    aria-label={`${loc.name} in ${loc.area}`}
-                  >
-                    {/* pulse */}
-                    <span
-                      className={`absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold ${
-                        isActive ? "skcl-pulse-glow" : ""
-                      }`}
-                    />
-                    {/* core dot */}
-                    <span
-                      className={`relative block h-2 w-2 rounded-full transition-all duration-500 ${
-                        isActive
-                          ? "scale-150 bg-gold"
-                          : "bg-soft-white/60 group-hover:bg-gold"
-                      }`}
-                    />
-                    {/* label */}
-                    <span
-                      className={`absolute left-4 top-1/2 -translate-y-1/2 whitespace-nowrap font-display text-[0.55rem] uppercase tracking-[0.2em] transition-all duration-500 ${
-                        isActive
-                          ? "text-soft-white opacity-100"
-                          : "text-soft-white/40 opacity-0 group-hover:opacity-100"
-                      }`}
-                    >
-                      {loc.name}
-                    </span>
-                  </button>
-                );
-              })}
-
-              {/* legend */}
-              <div className="absolute bottom-3 left-3 flex items-center gap-4">
-                <span className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                  <span className="font-display text-[0.5rem] uppercase tracking-[0.2em] text-soft-white/50">
-                    Operational
-                  </span>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-soft-white/40" />
-                  <span className="font-display text-[0.5rem] uppercase tracking-[0.2em] text-soft-white/50">
-                    Underway
-                  </span>
-                </span>
-              </div>
-            </div>
           </div>
         </div>
       </Container>
     </section>
   );
 }
+

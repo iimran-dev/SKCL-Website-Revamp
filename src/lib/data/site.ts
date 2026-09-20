@@ -63,12 +63,60 @@ export const SKCL_DEVELOPMENTS = [
 ];
 
 export const SKCL_TIMELINE_MILESTONES = [
-  { year: "2003", title: "Foundation", note: "SKCL established in Chennai" },
-  { year: "2008", title: "First Grade A Delivery", note: "Inaugural office tower handed over" },
-  { year: "2014", title: "Facility Management Vertical", note: "Integrated services launched" },
-  { year: "2019", title: "Joint Venture Practice", note: "Landowner partnerships formalised" },
-  { year: "2022", title: "1 Million Sq.ft Mark", note: "Cumulative delivery milestone" },
-  { year: "2026", title: "Next-Gen Campuses", note: "Horizon & Gateway underway" },
+  {
+    year: "2003",
+    title: "The Beginning",
+    note: "SKCL established in Chennai · First commercial & industrial facilities handed over.",
+    sqft: "45,000 sq.ft",
+    floors: "4 Floors",
+    typology: "Commercial Low-Rise",
+    keyProject: "Guindy Industrial Complex",
+  },
+  {
+    year: "2007",
+    title: "Growing Horizons",
+    note: "Multi-tenant office center handed over · Expanding commercial footprint across city nodes.",
+    sqft: "1,20,000 sq.ft",
+    floors: "6 Floors",
+    typology: "Corporate Business Center",
+    keyProject: "SKCL Central Park",
+  },
+  {
+    year: "2012",
+    title: "Expanding Possibilities",
+    note: "Grade A tech park delivered on Chennai's growth corridor with integrated infrastructure.",
+    sqft: "2,80,000 sq.ft",
+    floors: "8 Floors",
+    typology: "IT & Tech Park",
+    keyProject: "SKCL Tech Park",
+  },
+  {
+    year: "2017",
+    title: "Scaling New Heights",
+    note: "High-rise corporate tower · Advanced MEP & gold-standard sustainability ratings.",
+    sqft: "4,50,000 sq.ft",
+    floors: "11 Floors",
+    typology: "Grade A High-Rise",
+    keyProject: "SKCL One Tower",
+  },
+  {
+    year: "2021",
+    title: "Strengthening Partnerships",
+    note: "Institutional flagship commercial landmark in prime central business district.",
+    sqft: "7,50,000 sq.ft",
+    floors: "14 Floors",
+    typology: "Flagship Commercial Landmark",
+    keyProject: "SKCL Square",
+  },
+  {
+    year: "2026",
+    title: "Building What's Next",
+    note: "Next-generation sustainable campus · Horizon & Gateway underway with biophilic architecture.",
+    sqft: "1,200,000+ sq.ft",
+    floors: "18 Floors Equivalent",
+    typology: "Next-Gen Integrated Campus",
+    keyProject: "SKCL Horizon & Gateway",
+  },
 ];
 
 export const SKCL_CHENNAI_LOCATIONS = [
