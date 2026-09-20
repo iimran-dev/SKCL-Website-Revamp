@@ -5,10 +5,13 @@ import { UNSPLASH_IMAGES } from "@/lib/constants/images";
 export const SKCL_NAV = [
   { label: "The Company", href: "#company" },
   { label: "Developments", href: "#developments" },
-  { label: "Facility Management", href: "#facility" },
-  { label: "Joint Ventures", href: "#joint-ventures" },
+  { label: "Footprint", href: "#footprint" },
+  { label: "Evolution", href: "#evolution" },
+  { label: "Verticals", href: "#verticals" },
+  { label: "Why SKCL", href: "#why" },
   { label: "Clients", href: "#clients" },
-  { label: "Insights", href: "#insights" },
+  { label: "Sustainability", href: "#sustainability" },
+  { label: "Profile", href: "#profile" },
 ];
 
 export const SKCL_METRICS = [

@@ -9,9 +9,29 @@ import { LuxuryButton } from "../ui/luxury-button";
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const sectionIds = SKCL_NAV.map((item) => item.href.replace("#", ""));
+
+    const onScroll = () => {
+      setScrolled(window.scrollY > 60);
+
+      // Linear scrollspy to highlight current section
+      const scrollPos = window.scrollY + 240;
+      let current = "";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPos >= top) {
+            current = id;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -35,15 +55,15 @@ export function Navbar() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
           scrolled
-            ? "bg-navy/80 backdrop-blur-xl border-b border-white/8 py-3"
+            ? "border-b border-white/8 bg-navy/85 py-3 backdrop-blur-xl"
             : "bg-transparent py-5"
         )}
       >
-        <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-16">
+        <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 md:px-10 lg:px-12 xl:px-16">
           {/* Logo */}
           <a
             href="#top"
-            className="group flex items-center gap-3"
+            className="group flex shrink-0 items-center gap-3"
             aria-label="SKCL home"
           >
             <span className="flex h-9 items-center font-display text-xl font-semibold tracking-[0.18em] text-soft-white">
@@ -55,23 +75,36 @@ export function Navbar() {
             </span>
           </a>
 
-          {/* Center nav */}
-          <ul className="hidden items-center gap-8 lg:flex">
-            {SKCL_NAV.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="group relative font-display text-[0.72rem] uppercase tracking-[0.18em] text-soft-white/75 transition-colors duration-300 hover:text-soft-white"
-                >
-                  {item.label}
-                  <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-gold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full" />
-                </a>
-              </li>
-            ))}
+          {/* Center nav — linear sequence from page.tsx */}
+          <ul className="hidden items-center gap-3 lg:flex xl:gap-5 2xl:gap-6">
+            {SKCL_NAV.map((item) => {
+              const isActive = activeSection === item.href.slice(1);
+              return (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className={cn(
+                      "group relative whitespace-nowrap font-display text-[0.64rem] uppercase tracking-[0.14em] transition-colors duration-300 xl:text-[0.7rem] xl:tracking-[0.16em] 2xl:text-[0.74rem]",
+                      isActive
+                        ? "font-medium text-gold"
+                        : "text-soft-white/70 hover:text-soft-white"
+                    )}
+                  >
+                    {item.label}
+                    <span
+                      className={cn(
+                        "absolute -bottom-1 left-0 h-px bg-gold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      )}
+                    />
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           {/* Right CTA */}
-          <div className="hidden lg:block">
+          <div className="hidden shrink-0 lg:block">
             <LuxuryButton href="#contact" variant="outline-light" withArrow>
               Get in Touch
             </LuxuryButton>
@@ -122,40 +155,58 @@ export function Navbar() {
                 </button>
               </div>
 
-              <div className="flex flex-1 flex-col justify-center gap-1 px-8">
-                {SKCL_NAV.map((item, i) => (
-                  <motion.a
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: 0.12 + i * 0.07,
-                      duration: 0.7,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    className="group flex items-baseline justify-between border-b border-white/8 py-5"
-                  >
-                    <span className="skcl-editorial text-4xl text-soft-white">
-                      {item.label}
-                    </span>
-                    <span className="font-display text-[0.62rem] uppercase tracking-[0.24em] text-gold">
-                      0{i + 1}
-                    </span>
-                  </motion.a>
-                ))}
+              {/* Scrollable linear nav links */}
+              <div className="flex flex-1 flex-col justify-center gap-0.5 overflow-y-auto px-6 py-2 sm:px-10">
+                {SKCL_NAV.map((item, i) => {
+                  const isActive = activeSection === item.href.slice(1);
+                  return (
+                    <motion.a
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.04 + i * 0.03,
+                        duration: 0.45,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      className={cn(
+                        "group flex items-center justify-between border-b border-white/8 py-2.5 transition-colors sm:py-3",
+                        isActive ? "text-gold" : "text-soft-white"
+                      )}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        {isActive && (
+                          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+                        )}
+                        <span className="skcl-editorial text-xl transition-colors group-hover:text-gold sm:text-2xl md:text-3xl">
+                          {item.label}
+                        </span>
+                      </div>
+                      <span
+                        className={cn(
+                          "font-display text-[0.62rem] uppercase tracking-[0.24em]",
+                          isActive ? "text-gold font-semibold" : "text-gold/70"
+                        )}
+                      >
+                        0{i + 1}
+                      </span>
+                    </motion.a>
+                  );
+                })}
               </div>
 
-              <div className="flex flex-col gap-6 px-8 py-10">
+              {/* Drawer footer */}
+              <div className="flex flex-col gap-3 border-t border-white/10 px-6 py-5 sm:px-10">
                 <a
                   href="#contact"
                   onClick={() => setOpen(false)}
-                  className="inline-flex items-center justify-center bg-gold px-8 py-4 font-display text-[0.72rem] uppercase tracking-[0.22em] text-navy"
+                  className="inline-flex items-center justify-center bg-gold px-6 py-3 font-display text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-navy transition-transform active:scale-[0.98]"
                 >
                   Get in Touch
                 </a>
-                <div className="flex items-center justify-between font-display text-[0.62rem] uppercase tracking-[0.24em] text-soft-white/45">
+                <div className="flex items-center justify-between font-display text-[0.58rem] uppercase tracking-[0.22em] text-soft-white/45">
                   <span>Chennai · India</span>
                   <span>est. 2003</span>
                 </div>
@@ -167,3 +218,4 @@ export function Navbar() {
     </>
   );
 }
+
