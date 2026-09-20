@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   creator: "SKCL",
   publisher: "SKCL",
   icons: {
-    icon: getAssetPath("/logo.svg"),
+    icon: getAssetPath("/logo.png"),
   },
   openGraph: {
     title: "SKCL — Building Chennai's Business Landscape Since 2003",
